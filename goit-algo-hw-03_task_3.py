@@ -9,20 +9,20 @@ phone_numbers = [
     "(050)8889900",
     "38050-111-22-22",
     "38050 111 22 11 ",
+    "39 06 69884676"
 ]
 
 def normalize_phone(phone_number):
     cleaned_number = re.sub('[^0-9]', '', phone_number)
     if cleaned_number.startswith('380'):
-        cleaned_number = '+' + cleaned_number
+        return '+' + cleaned_number
+    elif cleaned_number.startswith('0'):
+        return '+38' + cleaned_number
     else:
-        cleaned_number = '+38' + cleaned_number
-
-    return cleaned_number
+        return '+' + cleaned_number
 
 for phone in phone_numbers:
     sanitized = normalize_phone(phone)
-    # print(sanitized)
 
 sanitized_numbers = [normalize_phone(num) for num in phone_numbers]
 print("Нормалізовані номери телефонів для SMS-розсилки:", sanitized_numbers)
